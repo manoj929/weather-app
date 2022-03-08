@@ -15,10 +15,7 @@ function convertion(val) {
 btn.addEventListener("click", function (e) {
   e.preventDefault();
   fetch(
-    "http://api.openweathermap.org/data/2.5/weather?q=" +
-      input.value +
-      "&APPID=" +
-      apiKey
+    `http://api.openweathermap.org/data/2.5/weather?q=${input.value}&APPID=${apiKey}`
   )
     .then((res) => res.json())
     .then((data) => {
