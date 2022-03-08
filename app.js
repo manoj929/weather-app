@@ -12,14 +12,28 @@ function convertion(val) {
   return (val - 273).toFixed(2);
 }
 
-btn.addEventListener("click", function (e) {
-  e.preventDefault();
+window.addEventListener("load", () => {
+  fetch(
+    `http://api.openweathermap.org/data/2.5/weather?q=London&APPID=${apiKey}`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      city.innerHTML = `weather of: <span>${data.name}</span>`;
+      temp.innerHTML = `temperature: <span>${convertion(
+        data.main.temp
+      )} °c</span>`;
+      description.innerHTML = `sky conditions: <span>${data.weather["0"]["description"]}</span>`;
+      wind.innerHTML = `wind speed: <span>${data.wind.speed} km/h</span>`;
+    })
+    .catch((err) => alert("something went wrong"));
+});
+
+btn.addEventListener("click", function () {
   fetch(
     `http://api.openweathermap.org/data/2.5/weather?q=${input.value}&APPID=${apiKey}`
   )
     .then((res) => res.json())
     .then((data) => {
-      console.log(data.name);
       city.innerHTML = `weather of: <span>${data.name}</span>`;
       temp.innerHTML = `temperature: <span>${convertion(
         data.main.temp
